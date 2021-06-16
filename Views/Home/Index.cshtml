@@ -1,0 +1,54 @@
+﻿@model List<Filme>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<form class="row">
+    <div class="col-md-6">
+        <input type="text" placeholder="Procurar filme" class="form-control" name="busca" />
+    </div>
+    <div class="col-md-3">
+        <button type="submit" class="btn btn-info">Buscar</button>
+    </div>
+</form>
+
+<div class="text-center">
+    <h1>Lista de Filmes</h1>
+    <table class="table table-dark table-hover">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(Model => Model.First().id)</th>
+                <th>@Html.DisplayNameFor(Model => Model.First().nome)</th>
+                <th>@Html.DisplayNameFor(Model => Model.First().lancamento)</th>
+                <th>@Html.DisplayNameFor(Model => Model.First().duracao)</th>
+                <th>View</th>
+                <th>Update</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (Filme filme in Model)
+            {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => filme.id)</td>
+                <td>@Html.DisplayFor(modelItem => filme.nome)</td>
+                <td>@Html.DisplayFor(modelItem => filme.lancamento)</td>
+                <td>@Html.DisplayFor(modelItem => filme.duracao) Minutos</td>
+                <td><a asp-action="Visualizar" asp-route-id="@filme.id">Show me</a></td>
+                <td><a asp-action="Update" asp-route-id="@filme.id">Change me</a></td>
+                <td><a asp-action="ValidaDelete" asp-route-id="@filme.id">Delete me</a></td>
+            </tr>
+            }
+        </tbody>
+    </table>
+    <div>
+        <a asp-action="Create" class="btn btn-info">Cadastrar novo Filme!</a>
+    </div>
+</div>
+<div>
+    <p>Total de filme: @ViewBag.contador</p>
+    <p>Quantidade de horas dos filmes: @ViewBag.soma</p>
+    <p>Filme mais Atual: @ViewBag.filmenovo</p>
+    <p>Filme mais caro: @ViewBag.filmecaro</p>
+</div>

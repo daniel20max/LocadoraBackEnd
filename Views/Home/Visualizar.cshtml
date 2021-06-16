@@ -1,0 +1,32 @@
+﻿@model Filme
+
+<h3>Você escolheu o filme @Model.nome</h3>
+<hr />
+<div class="container">
+    <div class="row">
+        <div class="col-sm">@Html.DisplayNameFor(ModelItem => Model.id)</div>
+        <div class="col-sm">@Html.DisplayFor(ModelItem => Model.id)</div>
+    </div>
+    <div class="row">
+        <div class="col-sm">@Html.DisplayNameFor(ModelItem => Model.nome)</div>
+        <div class="col-sm">@Html.DisplayFor(ModelItem => Model.nome)</div>
+    </div>
+    <div class="row">
+        <div class="col-sm">@Html.DisplayNameFor(ModelItem => Model.preco)</div>
+        <div class="col-sm">@Html.DisplayFor(ModelItem => Model.preco)</div>
+    </div>
+    <div class="row">
+        <div class="col-sm">@Html.DisplayNameFor(ModelItem => Model.duracao)</div>
+        <div class="col-sm">@Html.DisplayFor(ModelItem => Model.duracao)</div>
+    </div>
+    <div class="row">
+        <div class="col-sm">@Html.DisplayNameFor(ModelItem => Model.lancamento)</div>
+        <div class="col-sm">@Html.DisplayFor(ModelItem => Model.lancamento)</div>
+    </div>
+    <div class="row">
+        <div class="col-sm">@Html.DisplayNameFor(ModelItem => Model.sinopse)</div>
+        <div class="col-sm">@Html.DisplayFor(ModelItem => Model.sinopse)</div>
+    </div>
+</div>
+
+<a asp-action="Index">Back</a>
