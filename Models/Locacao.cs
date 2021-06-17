@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -26,5 +27,7 @@ namespace LocadoraDeFilmes.Models
             get; set;
         }
 
+        public string userId { get; set; }
+        public IdentityUser user { get; set; }
     }
 }

@@ -3,6 +3,7 @@ using LocadoraDeFilmes.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -30,6 +31,8 @@ namespace LocadoraDeFilmes
 
             services.AddDbContext<LocadoraContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("LocadoraContext")));
+
+            services.AddDefaultIdentity<IdentityUser>().AddEntityFrameworkStores<LocadoraContext>();
             services.AddTransient<LocadoraContext>();
             services.AddTransient<ILocadoraService, LocadoraService>();
         }
@@ -51,7 +54,7 @@ namespace LocadoraDeFilmes
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -59,6 +62,7 @@ namespace LocadoraDeFilmes
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapRazorPages();
             });
         }
     }

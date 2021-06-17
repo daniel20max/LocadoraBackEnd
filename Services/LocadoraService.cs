@@ -28,10 +28,12 @@ namespace LocadoraDeFilmes.Services
                 return false;
             }
         }
-        public bool Create(Locacao locacao)
+        public bool Create(Locacao locacao, string loggin)
         {
             try
             {
+                var user = _context.Users.FirstOrDefault(u => u.Email == loggin);
+                locacao.userId = user.Id;
                 _context.Add(locacao);
                 _context.SaveChanges();
                 return true;
@@ -56,6 +58,7 @@ namespace LocadoraDeFilmes.Services
             }
         }
 
+
         public Filme Get(int? id) => _context.filmes.Find(id);
         public List<Filme> GetLocadora(string busca = null) =>
             _context.filmes.Where(p =>
@@ -65,8 +68,12 @@ namespace LocadoraDeFilmes.Services
             .ToList();
 
         public Locacao GetLock(int? id) => _context.locacao.Include(l => l.filme).FirstOrDefault(l => l.id == id);
-        public List<Locacao> GetLocacao(string busca = null) =>
-           _context.locacao.Include(l => l.filme).ToList();
+
+        public List<Locacao> GetLocacao(string loggin, string busca = null)
+        {
+            var user = _context.Users.FirstOrDefault(u => u.Email == loggin);
+            return _context.locacao.Include(l => l.filme).Where(l => l.userId == user.Id).ToList();
+        }
 
         public bool Update(Filme p)
         {

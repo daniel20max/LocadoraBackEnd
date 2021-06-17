@@ -9,7 +9,7 @@ namespace LocadoraDeFilmes.Services
     public interface ILocadoraService
     {
         List<Filme> GetLocadora(string busca = null);
-        List<Locacao> GetLocacao(string busca = null);
+        List<Locacao> GetLocacao(string loggin, string busca = null);
         Locacao GetLock(int? id);
         Filme Get(int? id);
 
@@ -18,6 +18,6 @@ namespace LocadoraDeFilmes.Services
         bool Delete(int? id);
 
         bool Create(Filme filme);
-        bool Create(Locacao locacao);
+        bool Create(Locacao locacao, string loggin);
     }
 }

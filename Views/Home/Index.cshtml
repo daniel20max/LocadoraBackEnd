@@ -1,4 +1,6 @@
 ﻿@model List<Filme>
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
 @{
     ViewData["Title"] = "Home Page";
 }
@@ -22,29 +24,38 @@
                 <th>@Html.DisplayNameFor(Model => Model.First().lancamento)</th>
                 <th>@Html.DisplayNameFor(Model => Model.First().duracao)</th>
                 <th>View</th>
-                <th>Update</th>
-                <th>Delete</th>
+                @if (SignInManager.IsSignedIn(User))
+                {
+                    <th>Update</th>
+                    <th>Delete</th>
+                }
             </tr>
         </thead>
 
         <tbody>
             @foreach (Filme filme in Model)
             {
-            <tr>
-                <td>@Html.DisplayFor(modelItem => filme.id)</td>
-                <td>@Html.DisplayFor(modelItem => filme.nome)</td>
-                <td>@Html.DisplayFor(modelItem => filme.lancamento)</td>
-                <td>@Html.DisplayFor(modelItem => filme.duracao) Minutos</td>
-                <td><a asp-action="Visualizar" asp-route-id="@filme.id">Show me</a></td>
-                <td><a asp-action="Update" asp-route-id="@filme.id">Change me</a></td>
-                <td><a asp-action="ValidaDelete" asp-route-id="@filme.id">Delete me</a></td>
-            </tr>
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => filme.id)</td>
+                    <td>@Html.DisplayFor(modelItem => filme.nome)</td>
+                    <td>@Html.DisplayFor(modelItem => filme.lancamento)</td>
+                    <td>@Html.DisplayFor(modelItem => filme.duracao) Minutos</td>
+                    <td><a asp-action="Visualizar" asp-route-id="@filme.id">Show me</a></td>
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        <td><a asp-action="Update" asp-route-id="@filme.id">Change me</a></td>
+                        <td><a asp-action="ValidaDelete" asp-route-id="@filme.id">Delete me</a></td>
+                    }
+                </tr>
             }
         </tbody>
     </table>
-    <div>
-        <a asp-action="Create" class="btn btn-info">Cadastrar novo Filme!</a>
-    </div>
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <div>
+            <a asp-action="Create" class="btn btn-info">Cadastrar novo Filme!</a>
+        </div>
+    }
 </div>
 <div>
     <p>Total de filme: @ViewBag.contador</p>
